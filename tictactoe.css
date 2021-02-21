@@ -1,0 +1,24 @@
+html {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#boardHolder {
+    width: 501px;
+    height: 501px;
+    background-color: dimgray;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.board {
+    border: 1px solid white;
+    height: 165px;
+    width: 165px;
+    font-size: 150px;
+    text-align: center;
+    line-height: 135px;
+}
