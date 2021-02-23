@@ -3,20 +3,15 @@ const gameBoard = (() => {
     let initialArrayCreate = document.querySelectorAll('.board').forEach(element => array.push(element.textContent));
     const changePlayer = (input) => {inputMarker = input;}
     let inputMarker = '';
-    let playerTurnCounter = 0;
-    let computerTurnCounter = 0;
+    let click = {value:0};
+    const turnTrack = () => {
+        click.value++;;
+    }
     const boardHolderDiv = document.querySelector('#boardHolder');
     boardHolderDiv.addEventListener('click', function(e){
-        if (e.target.classList.contains('board') && e.target.textContent.length < 1){
+        if (e.target.classList.contains('board') && e.target.textContent.length < 1 && (inputMarker == 'x'  || inputMarker == 'o')){
             array[Number(e.target.id)] = inputMarker;
-            if(inputMarker == 'x'){
-                playerTurnCounter++
-                console.log('player turn is ' + playerTurnCounter);
-            }
-            else if(inputMarker == 'o'){
-                computerTurnCounter++;
-                console.log('computer turn is ' + computerTurnCounter);
-            }
+            turnTrack();
         }
         gameBoard.updateArray();
     });
@@ -30,8 +25,7 @@ const gameBoard = (() => {
     return {
         changePlayer,
         updateArray,
-        playerTurnCounter,
-        computerTurnCounter,
+        click,
     }
 })();
 
@@ -52,31 +46,12 @@ let computer = playerFactory('AI', 'o');
 
 
 
-const gameLogic = () => {
-    if ((gameBoard.playerTurnCounter-gameBoard.computerTurnCounter) == 1){    //wrong logic
-        player.changePlayer(player.input);
-    }
-    else if ((gameBoard.computerTurnCounter - gameBoard.playerTurnCounter) == 1){
-        computer.changePlayer(computer.input);
-    }
-    // const playerButton = document.querySelector('#playerChoose');
-    // playerButton.addEventListener('click', function(){
-    //     player.changePlayer(player.input);
-    // });
-    // const computerButton = document.querySelector('#computerChoose');
-    // computerButton.addEventListener('click', function(){
-    //     computer.changePlayer(computer.input);
-    // });
-    return {
-        // playerButton,
-        // computerButton,
-    };
-};
-
-if (gameBoard.playerTurnCounter-gameBoard.computerTurnCounter === 0){
-    player.changePlayer(player.input);
-    gameLogic();
+const gameLogic = () => {   
 }
+
+// gameLogic();
+
+
 // plan: minimise global code
 // step by step, first sort out clicking and dom manipulation, use text
 // change array depending on clicks?? 
