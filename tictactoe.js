@@ -120,7 +120,9 @@ const gameLogic = (() => {
 })();
 
 
-
+const initialChoose = (() => {  //toggle class
+    const 
+})();
 
 
 // plan: minimise global code
