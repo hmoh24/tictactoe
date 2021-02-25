@@ -3,19 +3,45 @@
     <head><meta charset="utf-8"><link rel='stylesheet' href='tictactoe.css'></head>
     <body>
         <h1>Tic Tac Toe</h1>
-        <div id='boardHolder'>
-            <div class='board' id='0'></div>
-            <div class='board' id='1'></div>
-            <div class='board' id='2'></div>
-            <div class='board' id='3'></div>
-            <div class='board' id='4'></div>
-            <div class='board' id='5'></div>
-            <div class='board' id='6'></div>
-            <div class='board' id='7'></div>
-            <div class='board' id='8'></div>
+        <div id='hiddenDiv'>
+            <div id='boardHolder'>
+                <div class='board' id='0'></div>
+                <div class='board' id='1'></div>
+                <div class='board' id='2'></div>
+                <div class='board' id='3'></div>
+                <div class='board' id='4'></div>
+                <div class='board' id='5'></div>
+                <div class='board' id='6'></div>
+                <div class='board' id='7'></div>
+                <div class='board' id='8'></div>
+            </div>
         </div>
-        <button id ='playerChoose'>player</button>
-        <button id ='computerChoose'>computer</button>
+        <div id='start'> 
+            <div id='part1'>
+                <h2>Player 1</h2>
+                <label for='player1Text'>Please type in your name:</label>
+                <input type='text' id='player1Text'>
+                <label >Choose marker:</label>
+                <div class='buttonHolder'>
+                    <button class ='playerChooseX'>X</button>
+                    <button class ='playerChooseO'>O</button>
+                </div>
+            </div>
+            <div id='part2'>
+                <h2>Player 2</h2>
+                <label for='player2Text'>Please type in your name:</label>
+                <input type='text' id='player2Text'>
+                <label >Choose marker:</label>
+                <div class='buttonHolder'>
+                    <button class ='playerChooseX'>X</button>
+                    <button class ='playerChooseO'>O</button>
+                </div>
+            </div>
+            <div id='submitHolder'>
+                <button id='submit'>Submit</button>
+            </div>
+        </div>
+       
     </body>
 </html>
 <script src="tictactoe.js"></script>
