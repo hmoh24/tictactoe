@@ -45,12 +45,6 @@ const playerFactory = (user, choice) => {
     )
 };
 
-let player = playerFactory('jj', 'x');
-let player2 = playerFactory('AI', 'o');
-
-if (gameBoard.click.value === 0){
-    gameBoard.changePlayer(player.marker);
-}
 
 const gameLogic = (() => {
     let win = {victor:''};
@@ -99,10 +93,10 @@ const gameLogic = (() => {
     const winMessager = () =>{
         if (gameBoard.click.value > 4 && win.victor !== ''){
             console.log('won');
-            if (win.victor === 'x'){
+            if (win.victor === player.marker){
                 alert(player.name + ' has won!');
             }
-            else if (win.victor === 'o'){
+            else if (win.victor === player2.marker){
                 alert(player2.name + ' has won!');
             }
         }
@@ -113,14 +107,10 @@ const gameLogic = (() => {
         winCheck,
         winMessager
     }
-    // if (gameBoard.click.value === 9){
-    //     checkWin('x', 'o');
-    // }
-    
 })();
 
 
-const initialChoose = (() => {  //toggle class
+const initialChoose = (() => {                                              //controlling Initial Pop Up
     const player1XButton = document.querySelector('#player1ChooseX');
     const player1OButton = document.querySelector('#player1ChooseO');
     const player2XButton = document.querySelector('#player2ChooseX');
@@ -160,11 +150,19 @@ const initialChoose = (() => {  //toggle class
         player2Name.value = document.querySelector('#player2Text').value
         startDiv.style.display = 'none';
         hiddenDiv.style.opacity = '100%';
+        gameUIChange.boardNameApply();
+        initialisePlayers();
+        gameBoard.changePlayer(player.marker);
     });
     let player1Choice = {value:''};
     let player2Choice = {value:''};
     let player1Name = {value:''};
     let player2Name = {value:''};
+    
+    const initialisePlayers = () => {
+        player = playerFactory(initialChoose.player1Name.value, initialChoose.player1Choice.value);
+        player2 = playerFactory(initialChoose.player2Name.value, initialChoose.player2Choice.value);
+    }
     return {
         player1Choice,
         player2Choice,
@@ -172,6 +170,32 @@ const initialChoose = (() => {  //toggle class
         player2Name,
     }
 })();
+
+let player;
+let player2;
+
+const gameUIChange = (() => {
+    const player1Title = document.querySelector('#player1Title');
+    const player1BoardText = document.querySelector('#player1Writing');
+    const player2Title = document.querySelector('#player2Title');
+    const player2BoardText = document.querySelector('#player2Writing');
+    const boardNameApply = () =>{
+        player1Title.textContent = initialChoose.player1Name.value;
+        player2Title.textContent = initialChoose.player2Name.value;
+    }
+    return {
+        boardNameApply,
+        player1Title,
+        player2Title,
+    }
+})();
+
+
+    
+
+
+
+
 
 
 // plan: minimise global code
