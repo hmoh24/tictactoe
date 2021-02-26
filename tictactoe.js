@@ -46,7 +46,7 @@ const playerFactory = (user, choice) => {
 };
 
 let player = playerFactory('jj', 'x');
-let computer = playerFactory('AI', 'o');
+let player2 = playerFactory('AI', 'o');
 
 if (gameBoard.click.value === 0){
     gameBoard.changePlayer(player.marker);
@@ -56,7 +56,7 @@ const gameLogic = (() => {
     let win = {victor:''};
     const turnChanger = () => {
         if (gameBoard.click.value%2 !== 0 && gameBoard.click.value !== 0){
-            gameBoard.changePlayer(computer.marker);
+            gameBoard.changePlayer(player2.marker);
         }
         else if (gameBoard.click.value%2 == 0 && gameBoard.click.value !== 0 ){
             gameBoard.changePlayer(player.marker);
@@ -103,7 +103,7 @@ const gameLogic = (() => {
                 alert(player.name + ' has won!');
             }
             else if (win.victor === 'o'){
-                alert(computer.name + ' has won!');
+                alert(player2.name + ' has won!');
             }
         }
     };
@@ -121,7 +121,56 @@ const gameLogic = (() => {
 
 
 const initialChoose = (() => {  //toggle class
-    const 
+    const player1XButton = document.querySelector('#player1ChooseX');
+    const player1OButton = document.querySelector('#player1ChooseO');
+    const player2XButton = document.querySelector('#player2ChooseX');
+    const player2OButton = document.querySelector('#player2ChooseO');
+    const submitButton = document.querySelector('#submit')
+    const hiddenDiv = document.querySelector('#hiddenDiv');
+    const startDiv = document.querySelector('#start');
+    startDiv.addEventListener('click', function(e){
+        if (e.target === player1XButton || e.target === player2OButton ){
+            e.preventDefault();
+            player1XButton.classList.toggle('toggleButton');
+            player2OButton.classList.toggle('toggleButton');
+            player1Choice.value = 'x';
+            player2Choice.value = 'o';
+            if (player1OButton.classList.contains('toggleButton') || player2XButton.classList.contains('toggleButton')){
+                player1OButton.classList.toggle('toggleButton');
+                player2XButton.classList.toggle('toggleButton');
+            }
+        }
+        else if (e.target === player1OButton || e.target === player2XButton ){
+            e.preventDefault();
+            player1OButton.classList.toggle('toggleButton');
+            player2XButton.classList.toggle('toggleButton');
+            player1Choice.value = 'o';
+            player2Choice.value = 'x';
+            if (player1XButton.classList.contains('toggleButton') || player2OButton.classList.contains('toggleButton')){
+                player1XButton.classList.toggle('toggleButton');
+                player2OButton.classList.toggle('toggleButton');
+            }
+        }
+    })
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        player1Name.value = document.querySelector('#player1Text').value
+        player2Name.value = document.querySelector('#player2Text').value
+        startDiv.style.display = 'none';
+        hiddenDiv.style.opacity = '100%';
+    });
+    let player1Choice = {value:''};
+    let player2Choice = {value:''};
+    let player1Name = {value:''};
+    let player2Name = {value:''};
+    return {
+        player1Choice,
+        player2Choice,
+        player1Name,
+        player2Name,
+    }
 })();
 
 
