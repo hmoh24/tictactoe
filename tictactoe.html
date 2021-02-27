@@ -3,10 +3,14 @@
     <head><meta charset="utf-8"><link rel='stylesheet' href='tictactoe.css'></head>
     <body>
         <div id='hiddenDiv'>
-            <h1 id='title'>Tic Tac Toe</h1>
+            <div id='titleHolder'>
+                <h1 id='title'>Tic-Tac-Toe</h1>
+            </div>
             <div id='player1Info'>
-                <h2 id='player1Title'></h2>
-                <p id='player2Writing'></p>
+                <div class='scoreboardHeader'>
+                    <h2 id='player1Title'></h2>
+                </div>
+                <p id='player1Writing'>0</p>
             </div>
             <div id='boardHolder'>
                 <div class='board' id='0'></div>
@@ -20,8 +24,14 @@
                 <div class='board' id='8'></div>
             </div>
             <div id='player2Info'>
-                <h2 id='player2Title'></h2>
-                <p id='player2Writing'></p>
+                <div class='scoreboardHeader'>
+                    <h2 id='player2Title'></h2>
+                </div>
+                <p id='player2Writing'>0</p>
+            </div>
+            <div id='boardButtons'>
+                <button id='nextRoundButton'>Next Round</button>
+                <button id='newGameButton'>New Game</button>
             </div>
         </div>
         <form>
@@ -29,7 +39,7 @@
                 <div id='part1'>
                     <h2>Player 1</h2>
                     <label for='player1Text'>Please type in your name:</label>
-                    <input type='text' id='player1Text' required>
+                    <input type='text' id='player1Text' maxlength="10" required>
                     <label >Choose marker:</label>
                     <div class='buttonHolder'>
                         <button id ='player1ChooseX'>X</button>
@@ -39,7 +49,7 @@
                 <div id='part2'>
                     <h2>Player 2</h2>
                     <label for='player2Text'>Please type in your name:</label>
-                    <input type='text' id='player2Text' required>
+                    <input type='text' id='player2Text' maxlength="10" required>
                     <label >Choose marker:</label>
                     <div class='buttonHolder'>
                         <button type='button' id ='player2ChooseX'>X</button>
@@ -47,7 +57,7 @@
                     </div>
                 </div>
                 <div id='submitHolder'>
-                    <button type='submit' id='submit'>Submit</button>
+                    <button type='submit' id='submit'>Start</button>
                 </div> 
             </div>
         </form>

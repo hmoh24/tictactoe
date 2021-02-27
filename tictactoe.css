@@ -113,6 +113,7 @@ body {
 }
 
 #boardHolder {
+    margin-top:30px;
     width: 501px;
     height: 501px;
     background-color: #161e4c;
@@ -178,6 +179,10 @@ label {
     width: 296px;
 }
 
+button:hover {
+  transform: scale(1.1);
+}
+
 #submit {
   background-color: white;
   color: rgb(245, 204, 129);
@@ -199,12 +204,23 @@ label {
   outline: black;
 }
 
+#titleHolder {
+  grid-column: 1/4;
+  grid-row: 1/2;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width: 100%;
+  background-color: goldenrod;
+  border-bottom: 5px solid white;
+}
+
 #title {
-    color: darkslategray;
-    grid-column: 2/3;
-    grid-row: 1/2;
+    color: #161e4c;
     justify-self: center;
     align-self: center;
+    font-size: 40px;
 }
 
 .board {
@@ -217,13 +233,63 @@ label {
   line-height: 135px;
 }
 
+.board:hover{
+  background-color: #293161;
+}
+
 #player1Info{
   grid-row: 2/3;
   grid-column: 1/2;
-  justify-self: flex-end;
+  justify-self: center;
+  display:flex;
+  flex-direction: column;
+  height: 200px;
+  width: 350px;
+  border: 1px solid rgb(245, 204, 129);
 }
 
 #player2Info{
   grid-row: 2/3;
   grid-column: 3/4;
+  justify-self: center;
+  display:flex;
+  flex-direction: column;
+  height: 200px;
+  width: 350px;
+  border: 1px solid rgb(245, 204, 129);
+}
+
+#player1Title, #player2Title {
+  color: #161e4c;
+  font-size: 40px;
+}
+
+.scoreboardHeader{
+  background-color:rgb(245, 204, 129);
+  height: 50px;
+  width: 349px;
+  display: flex;
+  justify-content: center;
+  line-height: 50px;
+}
+
+#player1Writing, #player2Writing {
+  font-size: 100px;
+  align-self: center;
+  color: #161e4c;
+}
+
+#boardButtons {
+  grid-row:3/4;
+  grid-column: 2/3;
+  justify-self: center;
+}
+
+#boardButtons button {
+  background-color: transparent;
+  color: rgb(245, 204, 129);
+  border: 1px solid rgb(245, 204, 129);
+  margin: 10px;
+  height: 50px;
+  width: 100px;
 }

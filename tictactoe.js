@@ -1,12 +1,12 @@
 const gameBoard = (() => {
     let array = [];
     let initialArrayCreate = document.querySelectorAll('.board').forEach(element => array.push(element.textContent));
-    let input = {marker : ''}
+    let input = {marker : ''};
     const changePlayer = (choice) => {input.marker = choice;}
     let click = {value:0};
     const turnTrack = () => {
         click.value++;;
-    }
+    };
     const boardHolderDiv = document.querySelector('#boardHolder');
     boardHolderDiv.addEventListener('click', function(e){
         if (e.target.classList.contains('board') && e.target.textContent.length < 1 && (input.marker == 'x'  || input.marker == 'o')){
@@ -15,7 +15,7 @@ const gameBoard = (() => {
             gameLogic.turnChanger();
             gameLogic.winCheck('x');
             gameLogic.winCheck('o');
-            gameLogic.winMessager();
+            gameLogic.roundWinCheck();
         }
         gameBoard.updateArray();
     });
@@ -25,7 +25,7 @@ const gameBoard = (() => {
             elementsNodeList[i].textContent = array[i] ;
         }
         return array;
-    }
+    };
     return {
         changePlayer,
         updateArray,
@@ -48,6 +48,8 @@ const playerFactory = (user, choice) => {
 
 const gameLogic = (() => {
     let win = {victor:''};
+    let score = {value: 0};
+    let score2 = {value:0};
     const turnChanger = () => {
         if (gameBoard.click.value%2 !== 0 && gameBoard.click.value !== 0){
             gameBoard.changePlayer(player2.marker);
@@ -59,53 +61,77 @@ const gameLogic = (() => {
     const winCheck = (marker) => {    
         if ((gameBoard.array[0] === marker &&gameBoard.array[1]=== marker && gameBoard.array[2] === marker)){
             win.victor = marker;
-            console.log('win');
+            
+            gameBoard.changePlayer(player.marker);
+            console.log('win is' + marker);
         }
         else if ((gameBoard.array[2]=== marker && gameBoard.array[5]=== marker && gameBoard.array[8] === marker)){
             win.victor = marker;
-            console.log('win');
+            
+            gameBoard.changePlayer(player.marker);
+            console.log('win is' + marker);
         }
         else if ((gameBoard.array[6] === marker&& gameBoard.array[7]=== marker && gameBoard.array[8] === marker)){
             win.victor = marker;
-            console.log('win');
+            
+            gameBoard.changePlayer(player.marker);
+            console.log('win is' + marker);
         }
         else if ((gameBoard.array[0] === marker && gameBoard.array[3] === marker && gameBoard.array[6] === marker)){
             win.victor = marker;
-            console.log('win');
+            
+            gameBoard.changePlayer(player.marker);
+            console.log('win is' + marker);
         }
         else if ((gameBoard.array[3] === marker && gameBoard.array[4] === marker && gameBoard.array[5] === marker)){
             win.victor = marker;
-            console.log('win');
+            
+            gameBoard.changePlayer(player.marker);
+            console.log('win is' + marker);
         }
         else if ((gameBoard.array[0] === marker && gameBoard.array[4] === marker && gameBoard.array[8] === marker)){
             win.victor = marker;
-            console.log('win');
+            
+            gameBoard.changePlayer(player.marker);
+            console.log('win is' + marker);
         }
         else if ((gameBoard.array[2] === marker && gameBoard.array[4] === marker && gameBoard.array[6] === marker)){
             win.victor = marker;
-            console.log('win');
+            
+            gameBoard.changePlayer(player.marker);
+            console.log('win is' + marker);
         }
         else if ((gameBoard.array[1] === marker && gameBoard.array[4] === marker && gameBoard.array[7] === marker)){
             win.victor = marker;
-            console.log('win');
+            
+            gameBoard.changePlayer(player.marker);
+            console.log('win is' + marker);
         }
     };
-    const winMessager = () =>{
+    const roundWinCheck = () =>{
         if (gameBoard.click.value > 4 && win.victor !== ''){
-            console.log('won');
+            console.log('win is in roundwincheck ' + win.victor);
             if (win.victor === player.marker){
-                alert(player.name + ' has won!');
+                gameUIChange.scoreBoardPlayer1();
             }
             else if (win.victor === player2.marker){
-                alert(player2.name + ' has won!');
+                gameUIChange.scoreBoardPlayer2();
             }
         }
     };
+    const restartRound = () =>{
+        for (let i=0; i < gameBoard.array.length; i++){
+            gameBoard.array[i] ='';
+        }
+    }
     return {
         win,
+        score,
+        score2,
         turnChanger,
         winCheck,
-        winMessager
+        roundWinCheck,
+        restartRound,
     }
 })();
 
@@ -179,14 +205,38 @@ const gameUIChange = (() => {
     const player1BoardText = document.querySelector('#player1Writing');
     const player2Title = document.querySelector('#player2Title');
     const player2BoardText = document.querySelector('#player2Writing');
+    const scoreBoardPlayer1 = () => {
+        gameLogic.score.value++
+        console.log(gameLogic.score.value);
+        player1BoardText.textContent = gameLogic.score.value;
+       
+    }
+    const scoreBoardPlayer2 = () => {
+        gameLogic.score2.value++
+        console.log(gameLogic.score2.value);
+        player2BoardText.textContent = gameLogic.score2.value;
+    }
     const boardNameApply = () =>{
         player1Title.textContent = initialChoose.player1Name.value;
         player2Title.textContent = initialChoose.player2Name.value;
     }
+
+    const newGameButton = document.querySelector('#newGameButton');
+    newGameButton.addEventListener('click', () => {
+        location.reload();
+    });
+
+    const nextRoundButton = document.querySelector('#nextRoundButton');
+    nextRoundButton.addEventListener('click', () => {
+        gameLogic.restartRound();
+        gameBoard.updateArray();
+        gameLogic.win.victor = '';
+        gameBoard.click.value = 0;
+    });
     return {
         boardNameApply,
-        player1Title,
-        player2Title,
+        scoreBoardPlayer1,
+        scoreBoardPlayer2,
     }
 })();
 
@@ -199,14 +249,11 @@ const gameUIChange = (() => {
 
 
 // plan: minimise global code
-// step by step, first sort out clicking and dom manipulation, use text
-// change array depending on clicks?? 
-// win condition logic: its a straight array 1,2,3,4,5,6,7,8,9
-//arranged      1 2 3   0 1 2
-//              4 5 6   3 4 5
-//              7 8 9   6 7 8
-// win is any three linking of 1-3, 3-9, 7-9, 1-7, 4-6, 1-9, 3-7, 2-8
-// how to test? 
-
+// features: buttons for play next round (reset gameboard method) and button for new game (restart page) and/or fix input at end of round issue DONE
+// dont allow additional clicks after round is over
+// Draw system
+// animation on load of start form?
+// Best of system?
+// something to increase response? like text saying X won this round
 
 // 
