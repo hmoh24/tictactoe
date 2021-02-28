@@ -112,9 +112,11 @@ const gameLogic = (() => {
         if (gameBoard.click.value > 4 && win.victor !== ''){
             console.log('win is in roundwincheck ' + win.victor);
             if (win.victor === player.marker){
+                gameBoard.input.marker = '';
                 gameUIChange.scoreBoardPlayer1();
             }
             else if (win.victor === player2.marker){
+                gameBoard.input.marker = '';
                 gameUIChange.scoreBoardPlayer2();
             }
         }
@@ -232,6 +234,7 @@ const gameUIChange = (() => {
         gameBoard.updateArray();
         gameLogic.win.victor = '';
         gameBoard.click.value = 0;
+        gameBoard.changePlayer(player.marker);
     });
     return {
         boardNameApply,
@@ -248,12 +251,3 @@ const gameUIChange = (() => {
 
 
 
-// plan: minimise global code
-// features: buttons for play next round (reset gameboard method) and button for new game (restart page) and/or fix input at end of round issue DONE
-// dont allow additional clicks after round is over
-// Draw system
-// animation on load of start form?
-// Best of system?
-// something to increase response? like text saying X won this round
-
-// 
